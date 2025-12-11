@@ -1,7 +1,6 @@
 package modelo;
 
 import java.awt.Color;
-import java.awt.Rectangle;
 
 public class Bus {
     private String marca; // "Coca-Cola" o "Pepsi"

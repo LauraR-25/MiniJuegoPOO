@@ -15,6 +15,8 @@ public class Jugador {
                 new Color(255, 0, 0) : // Rojo Coca-Cola
                 new Color(0, 100, 255); // Azul Pepsi
 
+        // Crear bus con posición Y que coincida con PanelCarrera
+        // Las posiciones Y reales se ajustarán en PanelCarrera.dibujarBuses()
         this.bus = new Bus(marcaBus, colorBus, 50, 0);
     }
 
@@ -37,4 +39,12 @@ public class Jugador {
 
     // Setters
     public void setNombre(String nombre) { this.nombre = nombre; }
+
+    // Método para verificar nombre si está vacío
+    public String getNombreDisplay() {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return bus.getMarca().equals("Coca-Cola") ? "Laura" : "Samuel";
+        }
+        return nombre;
+    }
 }

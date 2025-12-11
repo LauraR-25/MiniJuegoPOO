@@ -31,7 +31,7 @@ public class ControladorJuego {
                         pulsarCocaCola();
                         break;
                     case KeyEvent.VK_ENTER:
-                        // Enter para Pepsi (CORREGIDO)
+                        // Enter para Pepsi
                         if (juego != null && juego.isEnJuego()) {
                             pulsarPepsi();
                         } else {
@@ -39,12 +39,7 @@ public class ControladorJuego {
                             iniciarJuego();
                         }
                         break;
-                    case KeyEvent.VK_R:
-                        // Tecla R para reiniciar
-                        if (juego != null && !juego.isEnJuego()) {
-                            reiniciarJuego();
-                        }
-                        break;
+                    // ELIMINADO: case KeyEvent.VK_R: // Quitado Reiniciar
                     case KeyEvent.VK_ESCAPE:
                         // Escape para volver al menú
                         volverMenu();
@@ -75,6 +70,9 @@ public class ControladorJuego {
         String nombre1 = vista.getPanelSeleccion().getNombreJugador1();
         String nombre2 = vista.getPanelSeleccion().getNombreJugador2();
 
+        // Permitir nombres vacíos - el usuario decide si poner nombre o no
+        // No forzamos "Laura" y "Samuel" por defecto
+
         juego = new Juego(nombre1, nombre2, "Normal");
         vista.getPanelCarrera().setJuego(juego);
 
@@ -98,16 +96,7 @@ public class ControladorJuego {
         timer.start();
     }
 
-    private void reiniciarJuego() {
-        if (timer != null) {
-            timer.stop();
-        }
-        if (juego != null) {
-            juego.reiniciarCarrera();
-            timer.start();
-            vista.getPanelCarrera().repaint();
-        }
-    }
+    // ELIMINADO: método reiniciarJuego() - Ya no se usa
 
     private void volverMenu() {
         if (timer != null) {
@@ -120,18 +109,29 @@ public class ControladorJuego {
 
     private void mostrarGanador() {
         SwingUtilities.invokeLater(() -> {
+            String nombreGanador = juego.getGanador().getNombre();
+            String marcaGanador = juego.getGanador().getBus().getMarca();
+
+            // Si no hay nombre, mostrar solo la marca
+            String displayGanador = (nombreGanador == null || nombreGanador.trim().isEmpty()) ?
+                    marcaGanador : nombreGanador + " con " + marcaGanador;
+
+            String mensaje = "<html><div style='text-align: center;'>" +
+                    "<h2 style='color: " + (marcaGanador.equals("Coca-Cola") ? "red" : "blue") + ";'>¡GANADOR!</h2>" +
+                    "<p><b>" + displayGanador + "</b></p>" +
+                    "<p>Pulsaciones: " + juego.getGanador().getBus().getPulsaciones() + "</p>" +
+                    "<p>Tiempo: " + (juego.getTiempo() / 20) + " segundos</p>" +
+                    "</div></html>";
+
             int opcion = JOptionPane.showConfirmDialog(vista,
-                    "¡GANADOR!\n\n" +
-                            juego.getGanador().getNombre() + " con " +
-                            juego.getGanador().getBus().getMarca() + "\n" +
-                            "Pulsaciones: " + juego.getGanador().getBus().getPulsaciones() + "\n" +
-                            "Tiempo: " + (juego.getTiempo() / 20) + " segundos\n\n" +
-                            "¿Quieres jugar otra vez?",
+                    mensaje,
                     "Carrera Terminada",
-                    JOptionPane.YES_NO_OPTION);
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE);
 
             if (opcion == JOptionPane.YES_OPTION) {
-                reiniciarJuego();
+                // En lugar de reiniciar, volver al menú para nueva carrera
+                volverMenu();
             } else {
                 volverMenu();
             }

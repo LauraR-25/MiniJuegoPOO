@@ -2,8 +2,8 @@ package main;
 
 import vista.VentanaPrincipal;
 import controlador.ControladorJuego;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;  // ¡IMPORTANTE! Añade esta línea
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {

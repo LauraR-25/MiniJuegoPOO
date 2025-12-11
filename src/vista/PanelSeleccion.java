@@ -9,7 +9,7 @@ public class PanelSeleccion extends JPanel {
     private JButton btnIniciar;
 
     public PanelSeleccion() {
-        setLayout(null); // Usamos layout absoluto para control exacto de posiciones
+        setLayout(null);
         setBackground(Color.WHITE);
 
         // Título principal - Centrado arriba
@@ -28,7 +28,7 @@ public class PanelSeleccion extends JPanel {
         lblJugador1.setHorizontalAlignment(SwingConstants.LEFT);
         add(lblJugador1);
 
-        txtJugador1 = new JTextField("Laura");
+        txtJugador1 = new JTextField(); // VACÍO para que el usuario escriba
         txtJugador1.setFont(new Font("Arial", Font.PLAIN, 16));
         txtJugador1.setBounds(100, 130, 600, 35);
         txtJugador1.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -42,7 +42,7 @@ public class PanelSeleccion extends JPanel {
         lblJugador2.setHorizontalAlignment(SwingConstants.LEFT);
         add(lblJugador2);
 
-        txtJugador2 = new JTextField("Samuel");
+        txtJugador2 = new JTextField(); // VACÍO para que el usuario escriba
         txtJugador2.setFont(new Font("Arial", Font.PLAIN, 16));
         txtJugador2.setBounds(100, 210, 600, 35);
         txtJugador2.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -69,7 +69,7 @@ public class PanelSeleccion extends JPanel {
         );
         txtInstrucciones.setFont(new Font("Arial", Font.PLAIN, 14));
         txtInstrucciones.setForeground(Color.BLACK);
-        txtInstrucciones.setBackground(new Color(240, 240, 240)); // Fondo gris claro
+        txtInstrucciones.setBackground(new Color(240, 240, 240));
         txtInstrucciones.setEditable(false);
         txtInstrucciones.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         txtInstrucciones.setBounds(100, 320, 600, 80);
@@ -86,7 +86,7 @@ public class PanelSeleccion extends JPanel {
         JTextArea txtControles = new JTextArea("Coca-cola: Botón rojo\nPepsi: Botón azul");
         txtControles.setFont(new Font("Arial", Font.PLAIN, 14));
         txtControles.setForeground(Color.BLACK);
-        txtControles.setBackground(new Color(240, 240, 240)); // Fondo gris claro
+        txtControles.setBackground(new Color(240, 240, 240));
         txtControles.setEditable(false);
         txtControles.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         txtControles.setBounds(100, 450, 600, 50);
@@ -111,48 +111,69 @@ public class PanelSeleccion extends JPanel {
         lblCocaInst.setBounds(100, 570, 600, 25);
         add(lblCocaInst);
 
-        // Línea separadora 3 (opcional, según tu diseño)
+        // Línea separadora 3
         JSeparator separador3 = new JSeparator();
         separador3.setBounds(50, 610, 700, 2);
         separador3.setForeground(Color.LIGHT_GRAY);
         add(separador3);
 
-        // Iniciar Carrera
-        JLabel lblIniciarCarrera = new JLabel("Iniciar Carrera");
-        lblIniciarCarrera.setFont(new Font("Arial", Font.BOLD, 16));
-        lblIniciarCarrera.setForeground(Color.BLACK);
-        lblIniciarCarrera.setBounds(100, 630, 600, 25);
-        add(lblIniciarCarrera);
+        // CAMBIADO: "Pepsi" en lugar de "Iniciar Carrera"
+        JLabel lblPepsiTeclado = new JLabel("Pepsi");
+        lblPepsiTeclado.setFont(new Font("Arial", Font.BOLD, 16));
+        lblPepsiTeclado.setForeground(Color.BLACK);
+        lblPepsiTeclado.setBounds(100, 630, 600, 25);
+        add(lblPepsiTeclado);
 
-        JLabel lblIniciarInst = new JLabel("Botón del teclado: \"Enter\"");
-        lblIniciarInst.setFont(new Font("Arial", Font.PLAIN, 14));
-        lblIniciarInst.setForeground(Color.BLACK);
-        lblIniciarInst.setBounds(100, 660, 600, 25);
-        add(lblIniciarInst);
+        JLabel lblPepsiInst = new JLabel("Botón del teclado: \"Enter\"");
+        lblPepsiInst.setFont(new Font("Arial", Font.PLAIN, 14));
+        lblPepsiInst.setForeground(Color.BLACK);
+        lblPepsiInst.setBounds(100, 660, 600, 25);
+        add(lblPepsiInst);
+
+        // Línea separadora 4
+        JSeparator separador4 = new JSeparator();
+        separador4.setBounds(50, 700, 700, 2);
+        separador4.setForeground(Color.LIGHT_GRAY);
+        add(separador4);
 
         // Botón Iniciar Carrera - GRANDE y CENTRADO
         btnIniciar = new JButton("INICIAR CARRERA");
         btnIniciar.setFont(new Font("Arial", Font.BOLD, 20));
-        btnIniciar.setBackground(new Color(0, 180, 0)); // Verde brillante
-        btnIniciar.setForeground(Color.WHITE);
+        btnIniciar.setBackground(new Color(0, 180, 0));
+        btnIniciar.setForeground(Color.BLACK);
         btnIniciar.setFocusPainted(false);
-        btnIniciar.setBorder(BorderFactory.createEmptyBorder(15, 40, 15, 40));
-        btnIniciar.setBounds(250, 700, 300, 60); // Centrado horizontalmente
+        btnIniciar.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
+                BorderFactory.createEmptyBorder(15, 40, 15, 40)
+        ));
+        btnIniciar.setBounds(250, 730, 300, 60);
+
+        // Efecto hover
+        btnIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIniciar.setBackground(new Color(0, 200, 0));
+                btnIniciar.setForeground(Color.BLACK);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnIniciar.setBackground(new Color(0, 180, 0));
+                btnIniciar.setForeground(Color.BLACK);
+            }
+        });
+
         add(btnIniciar);
 
-        // Ajustar tamaño del panel para que sea scrollable
-        setPreferredSize(new Dimension(800, 800));
+        setPreferredSize(new Dimension(800, 850));
     }
 
     // Getters
     public String getNombreJugador1() {
         String text = txtJugador1.getText();
-        return text.isEmpty() ? " " : text;
+        return text.isEmpty() ? "" : text; // Devuelve vacío si no escribió nada
     }
 
     public String getNombreJugador2() {
         String text = txtJugador2.getText();
-        return text.isEmpty() ? " " : text;
+        return text.isEmpty() ? "" : text; // Devuelve vacío si no escribió nada
     }
 
     public JButton getBtnIniciar() { return btnIniciar; }
